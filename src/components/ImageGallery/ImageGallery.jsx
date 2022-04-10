@@ -104,7 +104,11 @@ class ImageGallery extends Component {
           <Button btnText="Load more" onSubmit={this.loadBtnHandler} />
           {showModal && (
             <Modal onClose={this.toggleModal}>
-              <img src={modalContent.largeImageURL} alt={modalContent.tags} />
+              <img
+                src={modalContent.largeImageURL}
+                alt={modalContent.tags}
+                style={{ width: '60vw', height: 'auto' }}
+              />
             </Modal>
           )}
         </div>
