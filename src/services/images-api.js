@@ -8,9 +8,5 @@ export function fetchImages(searchQuery, page) {
     if (response.ok) {
       return response.json();
     }
-
-    return Promise.reject(
-      new Error(`There are no picturs with name ${searchQuery}`)
-    );
   });
 }
