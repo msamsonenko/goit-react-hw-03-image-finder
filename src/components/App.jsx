@@ -23,22 +23,20 @@ export default class App extends Component {
     if (prevState.userInput !== userInput) {
       this.setState({ status: 'pending' });
 
-      setTimeout(() => {
-        fetchImages(userInput, page)
-          .then(({ hits }) => {
-            if (hits.length === 0) {
-              return Promise.reject(
-                new Error(
-                  `There are no picturs with name <<${userInput.toUpperCase()}>>`
-                )
-              );
-            }
-            this.setState({ pictures: [...hits], page: 1, status: 'resolved' });
-          })
-          .catch(error => {
-            this.setState({ error: error.message, status: 'rejected' });
-          });
-      }, 2000);
+      fetchImages(userInput, page)
+        .then(({ hits }) => {
+          if (hits.length === 0) {
+            return Promise.reject(
+              new Error(
+                `There are no picturs with name <<${userInput.toUpperCase()}>>`
+              )
+            );
+          }
+          this.setState({ pictures: [...hits], page: 1, status: 'resolved' });
+        })
+        .catch(error => {
+          this.setState({ error: error.message, status: 'rejected' });
+        });
     }
   }
 
@@ -46,22 +44,20 @@ export default class App extends Component {
     const { page, userInput } = this.state;
     this.setState({ showLoader: true });
 
-    setTimeout(() => {
-      fetchImages(userInput, page + 1)
-        .then(({ hits }) =>
-          this.setState(prevState => {
-            return {
-              pictures: [...prevState.pictures, ...hits],
-              page: prevState.page + 1,
-              status: 'resolved',
-            };
-          })
-        )
-        .catch(error => console.log(error))
-        .finally(() => {
-          this.setState({ showLoader: false });
-        });
-    }, 2000);
+    fetchImages(userInput, page + 1)
+      .then(({ hits }) =>
+        this.setState(prevState => {
+          return {
+            pictures: [...prevState.pictures, ...hits],
+            page: prevState.page + 1,
+            status: 'resolved',
+          };
+        })
+      )
+      .catch(error => console.log(error))
+      .finally(() => {
+        this.setState({ showLoader: false });
+      });
   };
   handleSubmitForm = ({ userInput }) => {
     this.setState({ userInput });
