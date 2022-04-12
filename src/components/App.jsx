@@ -60,7 +60,7 @@ export default class App extends Component {
       });
   };
   handleSubmitForm = ({ userInput }) => {
-    this.setState({ userInput });
+    this.setState({ userInput, page: 1 });
   };
   onImageClick = e => {
     const { pictures } = this.state;
